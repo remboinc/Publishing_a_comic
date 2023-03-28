@@ -22,6 +22,6 @@ You need to create an `.env` file, get your API token on the [VK website](https:
 
 To run the script, enter the command:
 ```
-python access_token.py
+python publishing_a_comic_vk.py
 ```
 
