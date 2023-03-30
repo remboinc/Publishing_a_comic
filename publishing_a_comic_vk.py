@@ -15,16 +15,16 @@ def get_random_comics_number():
 
 def download_comic(random_comic, safe_folder):
     os.makedirs(safe_folder, exist_ok=True)
-    comic_links = f'https://xkcd.com/{random_comic}/info.0.json'
-    response = requests.get(comic_links)
+    comic_link = f'https://xkcd.com/{random_comic}/info.0.json'
+    response = requests.get(comic_link)
     response.raise_for_status()
     comic_image = response.json()
-    images = comic_image.get('img')
+    image = comic_image.get('img')
     alt = comic_image.get('alt')
-    path = urlparse(images).path
+    path = urlparse(image).path
     extension = os.path.splitext(path)[1]
     image_name = f'comic_{extension}'
-    get_comic = requests.get(images)
+    get_comic = requests.get(image)
     filename = os.path.join(safe_folder, image_name)
     response.raise_for_status()
     with open(filename, 'wb') as file:
