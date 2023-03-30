@@ -46,7 +46,7 @@ The application type should be set to `standalone`, which is an appropriate type
 - Follow the instructions on the [developer page](https://vk.com/dev/implicit_flow_user) to get accsess token.
 - - Since you are using a `standalone` application, you should use Implicit Flow to get the user key
 - - Remove the redirect_uri parameter from the key request
-- - Specify the scope parameter separated by commas, like this: 'scope=photos,groups,wall'
+- - Specify the scope parameter separated by commas, like this: ` scope=photos,groups,wall `
 ## Run
 To run the script, enter the command:
 ```
