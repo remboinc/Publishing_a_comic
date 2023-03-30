@@ -25,11 +25,18 @@ Before start to deploy install requirements:
 pip install -r requirements.txt
 ```
 ## Environment variables
-You need to create an `.env` file, get your access token on the [VK website](https://dev.vk.com/api/access-token/implicit-flow-user) and insert it into the access_token variable in the `.env` file.
+You need to create an `.env` file, get your access token on the [VK website](https://dev.vk.com/api/access-token/implicit-flow-user) and insert it into the access_token variable in the `.env` file. To run in the environment of the program must be:
+access_token and client_id.
+
+Client_id is needed to work with the application. Access token is needed so that your application has access to your account and can publish messages in groups. 
 
 An example of a token to insert into an environment variable:
 ```
 access_token='vk1.b.sGHFgvhbjhbHJBJHjhHJNJnjk_nninnj_VGVVHGbmnwLKzmeZA7nG41EO-spYLQH_7o_-w9iC-O_uG_Guby4rlz7q1YCzFnJiVqsjdhbcsbdcbYBYbbjnBUBuyUvtvtuvVUBUBiJNIniijnnnKe2Lt9PP9TIPqRw_y1TrDwEhat1A'
+```
+An example of a client_id:
+```
+client_id=12345678
 ```
 ### How to get 
 - [Sign up](https://id.vk.com/auth?app_id=7913379&v=1.58.6&redirect_uri=https%3A%2F%2Fvk.com%2Fjoin&uuid=2akhQyx0pHpNiIacgm2Z8&scheme=space_gray&action=eyJuYW1lIjoibm9fcGFzc3dvcmRfZmxvdyIsInBhcmFtcyI6eyJ0eXBlIjoic2lnbl91cCJ9fQ%3D%3D) and log in to your VK account;
