@@ -6,9 +6,9 @@ from dotenv import load_dotenv
 from random import randint
 
 
-def get_random_comic():
-    random_comic = randint(1, 2755)
-    return random_comic
+def get_random_number():
+    random_number = randint(1, 2755)
+    return random_number
 
 
 def download_comic(random_comic, safe_folder):
