@@ -26,6 +26,7 @@ pip install -r requirements.txt
 ```
 ## Environment variables
 You need to create an `.env` file, get your access token on the [VK website](https://dev.vk.com/api/access-token/implicit-flow-user) and insert it into the access_token variable in the `.env` file.
+
 An example of a token to insert into an environment variable:
 ```
 access_token='vk1.b.sGHFgvhbjhbHJBJHjhHJNJnjk_nninnj_VGVVHGbmnwLKzmeZA7nG41EO-spYLQH_7o_-w9iC-O_uG_Guby4rlz7q1YCzFnJiVqsjdhbcsbdcbYBYbbjnBUBuyUvtvtuvVUBUBiJNIniijnnnKe2Lt9PP9TIPqRw_y1TrDwEhat1A'
