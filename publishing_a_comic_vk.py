@@ -76,7 +76,6 @@ def save_wall_photo(hash_, server, photo, access_token, api_version):
 
 
 def post_on_the_wall(alt, image_id, owner_id, access_token, api_version, group_id):
-    print(owner_id)
     url = 'https://api.vk.com/method/wall.post'
     params = {
         'access_token': access_token,
@@ -97,9 +96,9 @@ def delete_downloaded_comic(image_name):
 
 def main():
     load_dotenv()
-    access_token = os.getenv('ACCESS_TOKEN')
+    access_token = os.getenv('VK_IMPLICIT_FLOW_TOKEN')
     api_version = 5.131
-    group_id = os.getenv("GROUP_ID")
+    group_id = os.getenv("VK_GROUP_ID")
     сomic_book_folder = Path('images')
 
     try:

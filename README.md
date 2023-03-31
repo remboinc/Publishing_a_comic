@@ -31,15 +31,15 @@ Client_id is needed to work with the application. Access token is needed so that
 
 An example of a token to insert into an environment variable:
 ```
-ACCESS_TOKEN='vk1.b.sGHFgvhbjhbHJBJHjhHJNJnjk_nninnj_VGVVHGbmnwLKzmeZA7nG41EO-spYLQH_7o_-w9iC-O_uG_Guby4rlz7q1YCzFnJiVqsjdhbcsbdcbYBYbbjnBUBuyUvtvtuvVUBUBiJNIniijnnnKe2Lt9PP9TIPqRw_y1TrDwEhat1A'
+VK_IMPLICIT_FLOW_TOKEN='vk1.b.sGHFgvhbjhbHJBJHjhHJNJnjk_nninnj_VGVVHGbmnwLKzmeZA7nG41EO-spYLQH_7o_-w9iC-O_uG_Guby4rlz7q1YCzFnJiVqsjdhbcsbdcbYBYbbjnBUBuyUvtvtuvVUBUBiJNIniijnnnKe2Lt9PP9TIPqRw_y1TrDwEhat1A'
 ```
 An example of a client_id:
 ```
-CLIENT_ID=12345678
+VK_CLIENT_ID=12345678
 ```
 Also, you need to add group_id
 ```
-GROUP_ID=123456789
+VK_GROUP_ID=123456789
 ```
 ### How to get 
 - [Sign up](https://id.vk.com/auth?app_id=7913379&v=1.58.6&redirect_uri=https%3A%2F%2Fvk.com%2Fjoin&uuid=2akhQyx0pHpNiIacgm2Z8&scheme=space_gray&action=eyJuYW1lIjoibm9fcGFzc3dvcmRfZmxvdyIsInBhcmFtcyI6eyJ0eXBlIjoic2lnbl91cCJ9fQ%3D%3D) and log in to your VK account;
@@ -47,7 +47,7 @@ GROUP_ID=123456789
 - To post on the wall, you need a user access key. To get it, VKontakte wants an “app”. Create it on the Vkontakte page for developers. [Page for developers](https://vk.com/editapp?act=create). 
 The application type should be set to `standalone`, which is an appropriate type for applications that simply run on a computer.
 - Get the `client_id` of the created application. Click on the “Edit” button for the new application, you will see its `client_id` in the address bar.
-- Follow the instructions on the [developer page](https://vk.com/dev/implicit_flow_user) to get accsess token.
+- Follow the instructions on the [developer page](https://vk.com/dev/implicit_flow_user) to get access token.
 - - Since you are using a `standalone` application, you should use Implicit Flow to get the user key
 - - Remove the ` redirect_url ` parameter from the key request
 - - Specify the scope parameter separated by commas, like this: ` scope=photos,groups,wall `
