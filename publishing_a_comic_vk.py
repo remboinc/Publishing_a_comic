@@ -13,8 +13,8 @@ def get_random_comics_number():
     return random_comics_number
 
 
-def download_comic(random_comics_number, safe_folder):
-    os.makedirs(safe_folder, exist_ok=True)
+def download_comic(random_comics_number, сomic_book_folder):
+    os.makedirs(сomic_book_folder, exist_ok=True)
     comic_link = f'https://xkcd.com/{random_comics_number}/info.0.json'
     response = requests.get(comic_link)
     response.raise_for_status()
@@ -25,7 +25,7 @@ def download_comic(random_comics_number, safe_folder):
     extension = os.path.splitext(path)[1]
     image_name = f'comic_{extension}'
     get_comic = requests.get(image)
-    filename = os.path.join(safe_folder, image_name)
+    filename = os.path.join(сomic_book_folder, image_name)
     response.raise_for_status()
     with open(filename, 'wb') as file:
         file.write(get_comic.content)
@@ -70,9 +70,8 @@ def save_wall_photo(uploaded_image, access_token, api_version):
     url = 'https://api.vk.com/method/photos.saveWallPhoto'
     response = requests.post(url, params=params)
     response.raise_for_status()
-    photo_data = response.json()
-    image_id = photo_data['response'][0].get('id')
-    owner_id = photo_data['response'][0].get('owner_id')
+    image_id = response.json()['response'][0].get('id')
+    owner_id = response.json()['response'][0].get('owner_id')
     return image_id, owner_id
 
 
@@ -99,10 +98,10 @@ def main():
     load_dotenv()
     access_token = os.getenv('ACCESS_TOKEN')
     api_version = 5.131
-    safe_folder = Path('images')
+    сomic_book_folder = Path('images')
 
     random_comics_number = get_random_comics_number()
-    alt = download_comic(random_comics_number, safe_folder)
+    alt = download_comic(random_comics_number, сomic_book_folder)
     upload_url = get_wall_upload_server(access_token, api_version)
     uploaded_image = upload_image(upload_url)
     image_id, owner_id = save_wall_photo(uploaded_image, access_token, api_version)
