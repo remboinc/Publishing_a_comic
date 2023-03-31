@@ -24,11 +24,11 @@ def download_comic(random_comics_number, сomic_book_folder):
     path = urlparse(image).path
     extension = os.path.splitext(path)[1]
     image_name = f'comic_{extension}'
-    get_comic = requests.get(image)
+    comic = requests.get(image)
     filename = os.path.join(сomic_book_folder, image_name)
     response.raise_for_status()
     with open(filename, 'wb') as file:
-        file.write(get_comic.content)
+        file.write(comic.content)
     return alt
 
 
@@ -39,8 +39,8 @@ def get_wall_upload_server(access_token, api_version):
         'v': api_version,
     }
     response = requests.get(api_url, params=params)
-    response_json = response.json()
-    upload_url = response_json.get('response').get('upload_url')
+    response.raise_for_status()
+    upload_url = response.json().get('response').get('upload_url')
     return upload_url
 
 
