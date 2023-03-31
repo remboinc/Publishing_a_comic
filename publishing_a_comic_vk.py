@@ -75,13 +75,13 @@ def save_wall_photo(uploaded_image, access_token, api_version):
     return image_id, owner_id
 
 
-def post_on_the_wall(alt, image_id, owner_id, access_token, api_version):
+def post_on_the_wall(alt, image_id, owner_id, access_token, api_version, group_id):
     url = 'https://api.vk.com/method/wall.post'
     params = {
         'access_token': access_token,
         'v': api_version,
-        'group_id': 219620053,
-        'owner_id': -219620053,
+        'group_id': group_id,
+        'owner_id': f'-{owner_id}',
         'from_group': 1,
         'message': alt,
         'attachments': f'photo{owner_id}_{image_id}'
@@ -98,6 +98,7 @@ def main():
     load_dotenv()
     access_token = os.getenv('ACCESS_TOKEN')
     api_version = 5.131
+    group_id = os.getenv("GROUP_ID")
     сomic_book_folder = Path('images')
 
     try:
@@ -106,7 +107,7 @@ def main():
         upload_url = get_wall_upload_server(access_token, api_version)
         uploaded_image = upload_image(upload_url, image_name)
         image_id, owner_id = save_wall_photo(uploaded_image, access_token, api_version)
-        post_on_the_wall(alt, image_id, owner_id, access_token, api_version)
+        post_on_the_wall(alt, image_id, owner_id, access_token, api_version, group_id)
         delete_downloaded_comic(image_name)
         print('Комикс опубликован')
     except ValueError:
