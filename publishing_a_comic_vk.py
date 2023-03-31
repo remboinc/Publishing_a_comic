@@ -109,7 +109,7 @@ def main():
     except AttributeError:
         print('Скрипт не смог найти ключ в словаре, возможно истек срок жизни токена')
     finally:
-        os.remove(f'{сomic_book_folder}/{image_name}')
+        os.path.join(сomic_book_folder, image_name)
 
 
 if __name__ == '__main__':
