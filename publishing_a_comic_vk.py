@@ -113,7 +113,7 @@ def main():
         print('Комикс опубликован')
     except ValueError:
         delete_downloaded_comic(image_name)
-        print('Что-то пошло не так...')
+        print('Что-то пошло не так... Возможно истек срок жизни токена')
 
 
 if __name__ == '__main__':
