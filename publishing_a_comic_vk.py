@@ -57,12 +57,12 @@ def upload_image(upload_url):
 
 
 def save_wall_photo(uploaded_image, access_token, api_version):
-    hash = uploaded_image.get('hash')
+    hash_ = uploaded_image.get('hash')
     server = uploaded_image.get('server')
     photo = uploaded_image['photo']
     params = {
         'access_token': access_token,
-        'hash': hash,
+        'hash': hash_,
         'server': server,
         'photo': photo,
         'v': api_version,
