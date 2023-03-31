@@ -76,12 +76,13 @@ def save_wall_photo(uploaded_image, access_token, api_version):
 
 
 def post_on_the_wall(alt, image_id, owner_id, access_token, api_version, group_id):
+    print(owner_id)
     url = 'https://api.vk.com/method/wall.post'
     params = {
         'access_token': access_token,
         'v': api_version,
         'group_id': group_id,
-        'owner_id': f'-{owner_id}',
+        'owner_id': f'-{group_id}',
         'from_group': 1,
         'message': alt,
         'attachments': f'photo{owner_id}_{image_id}'
