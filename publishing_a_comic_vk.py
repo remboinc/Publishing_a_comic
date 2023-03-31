@@ -96,9 +96,9 @@ def delete_downloaded_comic(image_name):
 
 def main():
     load_dotenv()
-    access_token = os.getenv('VK_IMPLICIT_FLOW_TOKEN')
+    access_token = os.environ.get('VK_IMPLICIT_FLOW_TOKEN')
     api_version = 5.131
-    group_id = os.getenv("VK_GROUP_ID")
+    group_id = os.environ.get("VK_GROUP_ID")
     сomic_book_folder = Path('images')
 
     try:
@@ -108,12 +108,11 @@ def main():
         hash_, server, photo = upload_image(upload_url, image_name)
         image_id, owner_id = save_wall_photo(hash_, server, photo, access_token, api_version)
         post_on_the_wall(alt, image_id, owner_id, access_token, api_version, group_id)
-        delete_downloaded_comic(image_name)
         print('Комикс опубликован')
-    except ValueError:
-        delete_downloaded_comic(image_name)
-        print('Что-то пошло не так... Возможно истек срок жизни токена')
+    except AttributeError:
+        print('Скрипт не смог найти ключ в словаре, возможно истек срок жизни токена')
 
+    delete_downloaded_comic(image_name)
 
 if __name__ == '__main__':
     main()
