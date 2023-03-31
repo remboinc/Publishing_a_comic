@@ -18,12 +18,12 @@ def download_comic(random_comics_number, сomic_book_folder):
     response = requests.get(comic_link)
     response.raise_for_status()
     all_about_comic = response.json()
-    image = all_about_comic.get('img')
+    image_link = all_about_comic.get('img')
     alt = all_about_comic.get('alt')
-    path = urlparse(image).path
+    path = urlparse(image_link).path
     extension = os.path.splitext(path)[1]
     image_name = f'comic_{extension}'
-    comic = requests.get(image)
+    comic = requests.get(image_link)
     filename = os.path.join(сomic_book_folder, image_name)
     response.raise_for_status()
     with open(filename, 'wb') as file:
