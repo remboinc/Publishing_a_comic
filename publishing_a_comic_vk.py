@@ -29,7 +29,7 @@ def download_comic(random_comics_number, сomic_book_folder):
     response.raise_for_status()
     with open(filename, 'wb') as file:
         file.write(comic.content)
-    return alt
+    return alt, image_name
 
 
 def get_wall_upload_server(access_token, api_version):
@@ -44,8 +44,8 @@ def get_wall_upload_server(access_token, api_version):
     return upload_url
 
 
-def upload_image(upload_url):
-    path = Path('images/comic_.png')
+def upload_image(upload_url, image_name):
+    path = Path(f'images/{image_name}')
     with open(path, 'rb') as file:
         files = {
             'photo': file,
@@ -75,7 +75,7 @@ def save_wall_photo(uploaded_image, access_token, api_version):
     return image_id, owner_id
 
 
-def wall_post(alt, image_id, owner_id, access_token, api_version):
+def post_on_the_wall(alt, image_id, owner_id, access_token, api_version):
     url = 'https://api.vk.com/method/wall.post'
     params = {
         'access_token': access_token,
@@ -90,8 +90,8 @@ def wall_post(alt, image_id, owner_id, access_token, api_version):
     response.raise_for_status()
 
 
-def deleted_published_comic():
-    os.remove('images/comic_.png')
+def delete_downloaded_comic(image_name):
+    os.remove(f'images/{image_name}')
 
 
 def main():
@@ -100,13 +100,18 @@ def main():
     api_version = 5.131
     сomic_book_folder = Path('images')
 
-    random_comics_number = get_random_comics_number()
-    alt = download_comic(random_comics_number, сomic_book_folder)
-    upload_url = get_wall_upload_server(access_token, api_version)
-    uploaded_image = upload_image(upload_url)
-    image_id, owner_id = save_wall_photo(uploaded_image, access_token, api_version)
-    wall_post(alt, image_id, owner_id, access_token, api_version)
-    deleted_published_comic()
+    try:
+        random_comics_number = get_random_comics_number()
+        alt, image_name = download_comic(random_comics_number, сomic_book_folder)
+        upload_url = get_wall_upload_server(access_token, api_version)
+        uploaded_image = upload_image(upload_url, image_name)
+        image_id, owner_id = save_wall_photo(uploaded_image, access_token, api_version)
+        post_on_the_wall(alt, image_id, owner_id, access_token, api_version)
+        delete_downloaded_comic(image_name)
+        print('Комикс опубликован')
+    except ValueError:
+        delete_downloaded_comic(image_name)
+        print('Что-то пошло не так...')
 
 
 if __name__ == '__main__':
