@@ -14,7 +14,6 @@ def get_random_comics_number():
 
 
 def download_comic(random_comics_number, сomic_book_folder):
-    os.makedirs(сomic_book_folder, exist_ok=True)
     comic_link = f'https://xkcd.com/{random_comics_number}/info.0.json'
     response = requests.get(comic_link)
     response.raise_for_status()
@@ -90,10 +89,6 @@ def post_on_the_wall(alt, image_id, owner_id, access_token, api_version, group_i
     response.raise_for_status()
 
 
-def delete_downloaded_comic(image_name):
-    os.remove(f'images/{image_name}')
-
-
 def main():
     load_dotenv()
     access_token = os.environ.get('VK_IMPLICIT_FLOW_TOKEN')
@@ -103,6 +98,7 @@ def main():
 
     try:
         random_comics_number = get_random_comics_number()
+        os.makedirs(сomic_book_folder, exist_ok=True)
         alt, image_name = download_comic(random_comics_number, сomic_book_folder)
         upload_url = get_wall_upload_server(access_token, api_version)
         hash_, server, photo = upload_image(upload_url, image_name)
@@ -111,8 +107,9 @@ def main():
         print('Комикс опубликован')
     except AttributeError:
         print('Скрипт не смог найти ключ в словаре, возможно истек срок жизни токена')
+    finally:
+        os.remove(f'{сomic_book_folder}/{image_name}')
 
-    delete_downloaded_comic(image_name)
 
 if __name__ == '__main__':
     main()
