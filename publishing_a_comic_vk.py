@@ -53,13 +53,13 @@ def upload_image(upload_url, image_name):
         response = requests.post(upload_url, files=files)
     response.raise_for_status()
     uploaded_image = response.json()
-    return uploaded_image
-
-
-def save_wall_photo(uploaded_image, access_token, api_version):
     hash_ = uploaded_image.get('hash')
     server = uploaded_image.get('server')
-    photo = uploaded_image['photo']
+    photo = uploaded_image.get('photo')
+    return hash_, server, photo
+
+
+def save_wall_photo(hash_, server, photo, access_token, api_version):
     params = {
         'access_token': access_token,
         'hash': hash_,
@@ -106,8 +106,8 @@ def main():
         random_comics_number = get_random_comics_number()
         alt, image_name = download_comic(random_comics_number, сomic_book_folder)
         upload_url = get_wall_upload_server(access_token, api_version)
-        uploaded_image = upload_image(upload_url, image_name)
-        image_id, owner_id = save_wall_photo(uploaded_image, access_token, api_version)
+        hash_, server, photo = upload_image(upload_url, image_name)
+        image_id, owner_id = save_wall_photo(hash_, server, photo, access_token, api_version)
         post_on_the_wall(alt, image_id, owner_id, access_token, api_version, group_id)
         delete_downloaded_comic(image_name)
         print('Комикс опубликован')
