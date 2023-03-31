@@ -13,14 +13,14 @@ def get_random_comics_number():
     return random_comics_number
 
 
-def download_comic(random_comic, safe_folder):
+def download_comic(random_comics_number, safe_folder):
     os.makedirs(safe_folder, exist_ok=True)
-    comic_link = f'https://xkcd.com/{random_comic}/info.0.json'
+    comic_link = f'https://xkcd.com/{random_comics_number}/info.0.json'
     response = requests.get(comic_link)
     response.raise_for_status()
-    comic_image = response.json()
-    image = comic_image.get('img')
-    alt = comic_image.get('alt')
+    all_about_comic = response.json()
+    image = all_about_comic.get('img')
+    alt = all_about_comic.get('alt')
     path = urlparse(image).path
     extension = os.path.splitext(path)[1]
     image_name = f'comic_{extension}'
@@ -52,14 +52,14 @@ def upload_image(upload_url):
         }
         response = requests.post(upload_url, files=files)
         response.raise_for_status()
-        upload_image_data = response.json()
-    return upload_image_data
+        uploaded_image = response.json()
+    return uploaded_image
 
 
-def save_wall_photo(upload_image_data, access_token, api_version):
-    hash = upload_image_data.get('hash')
-    server = upload_image_data.get('server')
-    photo = upload_image_data['photo']
+def save_wall_photo(uploaded_image, access_token, api_version):
+    hash = uploaded_image.get('hash')
+    server = uploaded_image.get('server')
+    photo = uploaded_image['photo']
     params = {
         'access_token': access_token,
         'hash': hash,
@@ -97,15 +97,15 @@ def deleted_published_comic():
 
 def main():
     load_dotenv()
-    access_token = os.getenv('access_token')
+    access_token = os.getenv('ACCESS_TOKEN')
     api_version = 5.131
-    safe_folder = Path('../images')
+    safe_folder = Path('images')
 
-    random_comic = get_random_comics_number()
-    alt = download_comic(random_comic, safe_folder)
+    random_comics_number = get_random_comics_number()
+    alt = download_comic(random_comics_number, safe_folder)
     upload_url = get_wall_upload_server(access_token, api_version)
-    upload_image_data = upload_image(upload_url)
-    image_id, owner_id = save_wall_photo(upload_image_data, access_token, api_version)
+    uploaded_image = upload_image(upload_url)
+    image_id, owner_id = save_wall_photo(uploaded_image, access_token, api_version)
     wall_post(alt, image_id, owner_id, access_token, api_version)
     deleted_published_comic()
 
