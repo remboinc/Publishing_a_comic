@@ -109,7 +109,8 @@ def main():
     except AttributeError:
         print('Скрипт не смог найти ключ в словаре, возможно истек срок жизни токена')
     finally:
-        os.path.join(сomic_book_folder, image_name)
+        saved_comic = os.path.join(сomic_book_folder, image_name)
+        os.remove(saved_comic)
 
 
 if __name__ == '__main__':
